@@ -1,0 +1,5 @@
+/k8s
+/node_modules
+/dist
+server_copy.js
+Dockerfile

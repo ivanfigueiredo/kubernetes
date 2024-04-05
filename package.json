@@ -1,0 +1,24 @@
+{
+  "name": "kubernetes",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "type": "commonjs",
+  "scripts": {
+    "build": "rm -rf ./dist && npx webpack --config webpack.config.js",
+    "start": "node ./dist/main.js",
+    "start:prod": "node ./dist/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

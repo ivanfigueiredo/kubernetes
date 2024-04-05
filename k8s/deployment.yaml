@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: A
+    spec:
+      containers:
+        - name: nginx
+          image: ivanfigueiredo/app-node:v6
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: 128Mi
+          ports:
+          - containerPort: 9000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-b
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        version: B
+    spec:
+      containers:
+        - name: nginx
+          image: ivanfigueiredo/app-node:v6.1
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: 128Mi
+          ports:
+          - containerPort: 9000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx
+  ports:
+  - port: 8000
+    targetPort: 9000
+    nodePort: 30000
