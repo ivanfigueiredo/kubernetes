@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: ivanfigueiredo/app-node:v5
+
+          resources:
+            requests:
+              cpu: "0.1"
+              memory: 25Mi
+            limits:
+              cpu: "0.2"
+              memory: 50Mi
+
+          startupProbe:
+            httpGet:
+              path: /healthz 
+              port: 7000
+            periodSeconds: 4
+            failureThreshold: 30
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 7000
+            periodSeconds: 3
+            failureThreshold: 1
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 7000
+            periodSeconds: 5
+            failureThreshold: 1
+            timeoutSeconds: 1
+
+          env:
+           - name: PORT
+             value: "7000"
