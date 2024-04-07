@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-var config = {};
+const config = {};
 
 module.exports = {
   target: 'node',

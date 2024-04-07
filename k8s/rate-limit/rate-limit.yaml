@@ -6,8 +6,7 @@ metadata:
 spec:
   workloadSelector:
     labels:
-      app: httpbin
-      version: v1
+      app: nginx
   configPatches:
     - applyTo: HTTP_FILTER
       match:
@@ -25,7 +24,7 @@ spec:
             type_url: type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
             value:
               stat_prefix: http_local_rate_limiter
-              enable_x_ratelimit_headers: DRAFT_VERSION_03
+              # enable_x_ratelimit_headers: DRAFT_VERSION_03
               token_bucket:
                 max_tokens: 50
                 tokens_per_fill: 10
@@ -40,3 +39,10 @@ spec:
                 default_value:
                   numerator: 100
                   denominator: HUNDRED
+              response_headers_to_add:
+                - append_action: APPEND_IF_EXISTS_OR_ADD
+                  header:
+                    key: x-rate-limited
+                    value: TOO_MANY_REQUESTS
+              status:
+                code: BadRequest

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: ivanfigueiredo/app-node:v6
+          image: ivanfigueiredo/app-node:v7.2
           resources:
             limits:
               cpu: "0.5"
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: ivanfigueiredo/app-node:v6.1
+          image: ivanfigueiredo/app-node:v7.2
           resources:
             limits:
               cpu: "0.5"
@@ -53,7 +53,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: nginx
 spec:
   type: LoadBalancer
   selector:
